@@ -204,12 +204,12 @@ set tags+=~/.tags/cpptags,tags
 " tagbar
 "---------------------------------------------------------------------------------------------------
 " Показывать окно слева
-let g:tagbar_left = 1
+"let g:tagbar_left = 1
 " Ширина окна
 let g:tagbar_width = 30
 " Не сортировать
 let g:tagbar_sort = 0
-
+let g:tagbar_usearrows = 1
 
 "---------------------------------------------------------------------------------------------------
 " Enhanced keyboard mappings
@@ -221,7 +221,7 @@ imap <F2> <ESC>:w<CR>i
 " switch between header/source with F4
 map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 " recreate tags file with F5
-map <F5> :!ctags -R –c++-kinds=+p –fields=+iaS –extra=+q .<CR>
+map <F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 " create doxygen comment
 "map <F6> :Dox<CR>
 " build using makeprg with <F7>
@@ -234,7 +234,6 @@ nmap <F8> :TagbarToggle<CR>
 
 " goto definition with F12
 map <F12> <Esc>:bn<CR>
-
 
 " in diff mode we use the spell check keys for merging
 "if &diff
@@ -253,7 +252,6 @@ map <F12> <Esc>:bn<CR>
 "  map <M-Up> [s
 "endif
 
-
 " Enter toggles highlighting for the current word on and off
 let g:highlighting = 0
 function! Highlighting()
@@ -269,27 +267,6 @@ nnoremap <silent> <expr> <CR> Highlighting()
 
 " C-c - copy to the system clipboard
 vnoremap <C-c> "*y
-
-"map <M-c>	:call ferraltogglecommentify#FtcTc()<CR>j 
-"imap <M-c>	<ESC>:call ferraltogglecommentify#FtcTc()<CR>j 
-
-" Comment this line at ^
-"function! CommentLineToEnd(commentLeader)
-"   	let save_cpo   = &cpoptions
-"   	let save_paste = &paste
-"   	set cpo&vim
-"    set paste
-"    let escCommentLeader = escape(a:commentLeader, '^[.*\~]$')
-"    if getline(".") =~ '^\s*' . escCommentLeader
-"        execute "normal ^" . strlen(a:commentLeader) . "x"
-"    else
-"        execute "normal I" . a:commentLeader . "\<ESC>"
-"    endif
-"   	let &cpo   = save_cpo
-"   	let &paste = save_paste
-"endfunction
-"map <M-c> :call CommentLineToEnd('//')<CR> 
-"imap <M-c> <ESC>:call CommentLineToEnd('//')<CR> 
 
 " Autoformat
 noremap <F3> :Autoformat<CR><CR>
