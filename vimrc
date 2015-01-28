@@ -6,6 +6,8 @@ call pathogen#infect()
 filetype plugin indent on
 
 " Settings {{{
+let mapleader=","
+
 " Switch syntax highlighting on, when the terminal has colors
 syntax on
 
@@ -272,22 +274,22 @@ vnoremap <C-c> "*y
 "imap <M-c>	<ESC>:call ferraltogglecommentify#FtcTc()<CR>j 
 
 " Comment this line at ^
-function! CommentLineToEnd(commentLeader)
-   	let save_cpo   = &cpoptions
-   	let save_paste = &paste
-   	set cpo&vim
-    set paste
-    let escCommentLeader = escape(a:commentLeader, '^[.*\~]$')
-    if getline(".") =~ '^\s*' . escCommentLeader
-        execute "normal ^" . strlen(a:commentLeader) . "x"
-    else
-        execute "normal I" . a:commentLeader . "\<ESC>"
-    endif
-   	let &cpo   = save_cpo
-   	let &paste = save_paste
-endfunction
-map <M-c> :call CommentLineToEnd('//')<CR> 
-imap <M-c> <ESC>:call CommentLineToEnd('//')<CR> 
+"function! CommentLineToEnd(commentLeader)
+"   	let save_cpo   = &cpoptions
+"   	let save_paste = &paste
+"   	set cpo&vim
+"    set paste
+"    let escCommentLeader = escape(a:commentLeader, '^[.*\~]$')
+"    if getline(".") =~ '^\s*' . escCommentLeader
+"        execute "normal ^" . strlen(a:commentLeader) . "x"
+"    else
+"        execute "normal I" . a:commentLeader . "\<ESC>"
+"    endif
+"   	let &cpo   = save_cpo
+"   	let &paste = save_paste
+"endfunction
+"map <M-c> :call CommentLineToEnd('//')<CR> 
+"imap <M-c> <ESC>:call CommentLineToEnd('//')<CR> 
 
 " Autoformat
 noremap <F3> :Autoformat<CR><CR>
