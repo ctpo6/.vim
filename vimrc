@@ -252,7 +252,7 @@ map <F12> <Esc>:bn<CR>
 "  map <M-Up> [s
 "endif
 
-" Enter toggles highlighting for the current word on and off
+" ENTER toggles highlighting for the current word on and off
 let g:highlighting = 0
 function! Highlighting()
   if g:highlighting == 1 && @/ =~ '^\\<'.expand('<cword>').'\\>$'
@@ -266,7 +266,12 @@ endfunction
 nnoremap <silent> <expr> <CR> Highlighting()
 
 " C-c - copy to the system clipboard
-vnoremap <C-c> "*y
+"vnoremap <C-c> "*y
 
 " Autoformat
 noremap <F3> :Autoformat<CR><CR>
+
+" nerdtree
+map <C-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
