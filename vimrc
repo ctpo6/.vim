@@ -49,6 +49,9 @@ set hidden
 " Turn word wrap off
 set nowrap
 
+set textwidth=0
+set wrapmargin=0
+
 " Allow backspace to delete end of line, indent and start of line characters
 set backspace=indent,eol,start
 
@@ -214,18 +217,32 @@ let g:tagbar_usearrows = 1
 "---------------------------------------------------------------------------------------------------
 " Enhanced keyboard mappings
 "---------------------------------------------------------------------------------------------------
+" Press i to enter insert mode, and ii to exit.
+:imap ii <Esc>
+
 " in normal mode F2 will save the file
 nmap <F2> :w<CR>
 " in insert mode F2 will exit insert, save, enters insert again
 imap <F2> <ESC>:w<CR>i
+
+" Autoformat
+map <F3> :Autoformat<CR><CR>
+
 " switch between header/source with F4
 map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+
 " recreate tags file with F5
 map <F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+
 " create doxygen comment
 "map <F6> :Dox<CR>
+
+map <F4> :cn<Cr>zvzz:cc<Cr>
+map <S-F4> :cp<Cr>zvzz:cc<Cr>
+
 " build using makeprg with <F7>
 map <F7> :make<CR>
+
 " build using makeprg with <S-F7>
 map <S-F7> :make clean all<CR>
 
@@ -234,6 +251,9 @@ nmap <F8> :TagbarToggle<CR>
 
 " goto definition with F12
 map <F12> <Esc>:bn<CR>
+
+" switch tabs
+map <C-Tab> <Esc>:tabn<CR>
 
 " in diff mode we use the spell check keys for merging
 "if &diff
@@ -265,11 +285,11 @@ function! Highlighting()
 endfunction
 nnoremap <silent> <expr> <CR> Highlighting()
 
-" C-c - copy to the system clipboard
-"vnoremap <C-c> "*y
+" C-c - copy to the system clipboard in Visual mode
+vnoremap <C-c> "*y
 
-" Autoformat
-noremap <F3> :Autoformat<CR><CR>
+" astyle for CPP
+autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ --mode=c\ --style=ansi\ -t4bJUp
 
 " nerdtree
 map <C-n> :NERDTreeToggle<CR>
