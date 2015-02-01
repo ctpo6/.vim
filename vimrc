@@ -18,7 +18,7 @@ set nobackup
 set nowritebackup
 
 " No swap file
-"set noswapfile
+set noswapfile
 
 " Command history
 set history=100
@@ -142,7 +142,7 @@ colorscheme solarized
 "autocmd vimenter * if !argc() | NERDTree | endif
 
 " turn syntax highlighting on
-"set t_Co=256
+set t_Co=256
 
 " intelligent comments
 "set comments=sl:/*,mb:\ *,elx:\ */
@@ -229,7 +229,7 @@ imap <F2> <ESC>:w<CR>i
 map <F3> :Autoformat<CR><CR>
 
 " switch between header/source with F4
-map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+"map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 
 " recreate tags file with F5
 map <F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
