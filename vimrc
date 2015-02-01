@@ -120,7 +120,7 @@ set showmatch
 " Set built-in file system explorer to use layout similar to the NERDTree plugin
 let g:netrw_liststyle=3
 
-" Always highlight column 80 so it's easier to see where
+" Always highlight column 100 so it's easier to see where
 " cutoff appears on longer screens
 autocmd BufWinEnter * highlight ColorColumn ctermbg=darkred
 set colorcolumn=100
@@ -139,7 +139,7 @@ set background=dark
 colorscheme solarized
 
 " open NERDTree automatically if no files were specified
-"autocmd vimenter * if !argc() | NERDTree | endif
+autocmd vimenter * if !argc() | NERDTree | endif
 
 " turn syntax highlighting on
 set t_Co=256
@@ -193,11 +193,12 @@ endif
 " Install OmniCppComplete like described on http://vim.wikia.com/wiki/C++_code_completion
 " This offers intelligent C++ completion when typing ‘.’ ‘->’ or <C-o>
 
+" search
+set tags=./tags;/
 " Load standard tag files
-set tags+=~/.tags/cpptags,tags
-"set tags+=~/.vim/tags/gl
-"set tags+=~/.vim/tags/sdl
-"set tags+=~/.vim/tags/qt4
+set tags+=~/.tags/cpptags
+" boost tags file is HUGE (((
+"set tags+=~/.tags/boost
 
 " Install DoxygenToolkit from http://www.vim.org/scripts/script.php?script_id=987
 "let g:DoxygenToolkit_authorName=“Gerhard Gappmeier <gerhard.gappmeier@ascolab.com>”
@@ -206,12 +207,9 @@ set tags+=~/.tags/cpptags,tags
 "---------------------------------------------------------------------------------------------------
 " tagbar
 "---------------------------------------------------------------------------------------------------
-" Показывать окно слева
-"let g:tagbar_left = 1
 " Ширина окна
 let g:tagbar_width = 30
-" Не сортировать
-let g:tagbar_sort = 0
+let g:tagbar_sort = 1
 let g:tagbar_usearrows = 1
 
 "---------------------------------------------------------------------------------------------------
@@ -223,7 +221,7 @@ let g:tagbar_usearrows = 1
 " in normal mode F2 will save the file
 nmap <F2> :w<CR>
 " in insert mode F2 will exit insert, save, enters insert again
-imap <F2> <ESC>:w<CR>i
+"imap <F2> <ESC>:w<CR>i
 
 " Autoformat
 map <F3> :Autoformat<CR><CR>
@@ -246,8 +244,10 @@ map <F7> :make<CR>
 " build using makeprg with <S-F7>
 map <S-F7> :make clean all<CR>
 
-" open Tagbar window
-nmap <F8> :TagbarToggle<CR> 
+" open Tagbar window; jump to it if already exists
+map <F8> :TagbarOpen('j')<CR>
+" toggle Tagbar window
+map <S-F8> :TagbarToggle<CR>
 
 " goto definition with F12
 map <F12> <Esc>:bn<CR>
@@ -285,8 +285,15 @@ function! Highlighting()
 endfunction
 nnoremap <silent> <expr> <CR> Highlighting()
 
-" C-c - copy to the system clipboard in Visual mode
-vnoremap <C-c> "*y
+" copy, cut, paste
+vnoremap <C-c> "+y
+vnoremap <C-x> "+x
+map <C-v> "+gP
+
+" open the definition in a new tab
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+" open the definition in a vertical split
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " astyle for CPP
 autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ --mode=c\ --style=ansi\ -t4bJUp
