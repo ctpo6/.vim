@@ -245,9 +245,9 @@ map <F7> :make<CR>
 map <S-F7> :make clean all<CR>
 
 " open Tagbar window; jump to it if already exists
-map <F8> :TagbarOpen('j')<CR>
+"map <F8> :TagbarOpen('j')<CR>
 " toggle Tagbar window
-map <S-F8> :TagbarToggle<CR>
+nmap <F8> :TagbarToggle<CR>
 
 " goto definition with F12
 map <F12> <Esc>:bn<CR>
