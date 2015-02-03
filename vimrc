@@ -247,13 +247,13 @@ map <S-F7> :make clean all<CR>
 " open Tagbar window; jump to it if already exists
 "map <F8> :TagbarOpen('j')<CR>
 " toggle Tagbar window
-nmap <F8> :TagbarToggle<CR>
+nnoremap <F8> :TagbarToggle<CR>
 
 " goto definition with F12
 map <F12> <Esc>:bn<CR>
 
 " switch tabs
-map <C-Tab> <Esc>:tabn<CR>
+nnoremap <C-Tab> <Esc>:tabn<CR>
 
 " in diff mode we use the spell check keys for merging
 "if &diff
@@ -302,3 +302,11 @@ autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ --mode=c\ --style=ansi\ -
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+" change working directory to the current file
+command Cwd :cd %:p:h
+
+" autosource .vimrc
+augroup myvimrc
+    au!
+    au BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+augroup END
