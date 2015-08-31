@@ -5,18 +5,33 @@ filetype plugin off
 call pathogen#infect()
 filetype plugin indent on
 
-" Settings {{{
+" Change leader to a comma because the backslash is too far away
+" " That means all \x commands turn into ,x
+" " The mapleader has to be set before vundle starts loading all 
+" " the plugins.
 let mapleader=","
+
+set number                      "Line numbers are good
+set backspace=indent,eol,start  "Allow backspace in insert mode
+set history=1000                "Store lots of :cmdline history
+set showcmd                     "Show incomplete cmds down the bottom
+set showmode                    "Show current mode down the bottom
+set gcr=a:blinkon0              "Disable cursor blink
+set visualbell                  "No sounds
+set autoread                    "Reload files changed outside vim
+
+" " This makes vim act like all other editors, buffers can
+" " exist in the background without being in a window.
+" " http://items.sjbach.com/319/configuring-vim-right
+set hidden
 
 " Switch syntax highlighting on, when the terminal has colors
 syntax on
 
 " No backup files
 set nobackup
-
 " No write backup
 set nowritebackup
-
 " No swap file
 set noswapfile
 
@@ -31,20 +46,13 @@ set showcmd
 
 " Incremental searching (search as you type)
 set incsearch
-
 " Highlight search matches
 set hlsearch
-
 " Ignore case in search
 set smartcase
 
 " Make sure any searches /searchPhrase doesn't need the \c escape character
 set ignorecase
-
-" A buffer is marked as ‘hidden’ if it has unsaved changes, and it is not currently loaded in a window
-" if you try and quit Vim while there are hidden buffers, you will raise an error:
-" E162: No write since last change for buffer “a.txt”
-set hidden
 
 " Turn word wrap off
 set nowrap
@@ -52,20 +60,12 @@ set nowrap
 set textwidth=0
 set wrapmargin=0
 
-" Allow backspace to delete end of line, indent and start of line characters
-set backspace=indent,eol,start
-
 " Convert tabs to spaces
-"set expandtab
-
+set expandtab
 " Set tab size in spaces (this is for manual indenting)
-set tabstop=4
-
+set tabstop=2
 " The number of spaces inserted for a tab (used for auto indenting)
-set shiftwidth=4
-
-" Turn on line numbers
-set number
+set shiftwidth=2
 
 " Highlight tailing whitespace
 set list listchars=tab:\ \ ,trail:·
@@ -88,9 +88,6 @@ set encoding=utf-8
 set fenc=utf-8
 set termencoding=utf-8
 
-" Autoload files that have changed outside of vim
-set autoread
-
 " Use system clipboard
 " http://stackoverflow.com/questions/8134647/copy-and-paste-in-vim-via-keyboard-between-different-mac-terminals
 set clipboard+=unnamed
@@ -104,9 +101,6 @@ set splitright
 
 " Highlight the current line
 set cursorline
-
-" Ensure Vim doesn't beep at you every time you make a mistype
-set visualbell
 
 " Visual autocomplete for command menu (e.g. :e ~/path/to/file)
 set wildmenu
@@ -122,8 +116,8 @@ let g:netrw_liststyle=3
 
 " Always highlight column 100 so it's easier to see where
 " cutoff appears on longer screens
-autocmd BufWinEnter * highlight ColorColumn ctermbg=darkred
-set colorcolumn=100
+autocmd BufWinEnter * highlight ColorColumn ctermbg=darkblue
+set colorcolumn=80
 
 " always set autoindenting on
 set ai						
@@ -139,7 +133,7 @@ set background=dark
 colorscheme solarized
 
 " open NERDTree automatically if no files were specified
-autocmd vimenter * if !argc() | NERDTree | endif
+"autocmd vimenter * if !argc() | NERDTree | endif
 
 " turn syntax highlighting on
 set t_Co=256
@@ -193,12 +187,26 @@ endif
 " Install OmniCppComplete like described on http://vim.wikia.com/wiki/C++_code_completion
 " This offers intelligent C++ completion when typing ‘.’ ‘->’ or <C-o>
 
+"-------------------------------------------------------------------------------
+" ctags
+"-------------------------------------------------------------------------------
 " search
-set tags=./tags;/
+set tags=./tags,tags
+
 " Load standard tag files
-set tags+=~/.tags/cpptags
+set tags+=~/.tags/include
+set tags+=~/.tags/cpp;
+
 " boost tags file is HUGE (((
-"set tags+=~/.tags/boost
+"set tags+=~/.tags/boost;
+
+" ctpp2 library headers
+set tags+=~/.tags/ctpp2
+
+" Rambler's CAS
+set tags+=~/.tags/cas
+
+
 
 " Install DoxygenToolkit from http://www.vim.org/scripts/script.php?script_id=987
 "let g:DoxygenToolkit_authorName=“Gerhard Gappmeier <gerhard.gappmeier@ascolab.com>”
@@ -208,7 +216,7 @@ set tags+=~/.tags/cpptags
 " tagbar
 "---------------------------------------------------------------------------------------------------
 " Ширина окна
-let g:tagbar_width = 30
+let g:tagbar_width = 40
 let g:tagbar_sort = 1
 let g:tagbar_usearrows = 1
 
@@ -221,7 +229,7 @@ let g:tagbar_usearrows = 1
 " in normal mode F2 will save the file
 nmap <F2> :w<CR>
 " in insert mode F2 will exit insert, save, enters insert again
-"imap <F2> <ESC>:w<CR>i
+imap <F2> <ESC>:w<CR>i
 
 " Autoformat
 map <F3> :Autoformat<CR><CR>
@@ -250,10 +258,10 @@ map <S-F7> :make clean all<CR>
 nnoremap <F8> :TagbarToggle<CR>
 
 " goto definition with F12
-map <F12> <Esc>:bn<CR>
+"map <F12> <Esc>:bn<CR>
 
 " switch tabs
-nnoremap <C-Tab> <Esc>:tabn<CR>
+"nnoremap <C-Tab> <Esc>:tabn<CR>
 
 " in diff mode we use the spell check keys for merging
 "if &diff
@@ -301,9 +309,6 @@ autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ --mode=c\ --style=ansi\ -
 " nerdtree
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-" change working directory to the current file
-command Cwd :cd %:p:h
 
 " autosource .vimrc
 augroup myvimrc
