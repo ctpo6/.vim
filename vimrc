@@ -35,14 +35,8 @@ set nowritebackup
 " No swap file
 set noswapfile
 
-" Command history
-set history=100
-
 " Always show cursor
 set ruler
-
-" Show incomplete commands
-set showcmd
 
 " Incremental searching (search as you type)
 set incsearch
@@ -50,22 +44,16 @@ set incsearch
 set hlsearch
 " Ignore case in search
 set smartcase
-
 " Make sure any searches /searchPhrase doesn't need the \c escape character
 set ignorecase
 
-" Turn word wrap off
-set nowrap
-
+" soft wrap long lines
+set wrap
+set linebreak
+set nolist
+" prevent Vim from automatically inserting line breaks
 set textwidth=0
 set wrapmargin=0
-
-" Convert tabs to spaces
-set expandtab
-" Set tab size in spaces (this is for manual indenting)
-set tabstop=2
-" The number of spaces inserted for a tab (used for auto indenting)
-set shiftwidth=2
 
 " Highlight tailing whitespace
 set list listchars=tab:\ \ ,trail:·
@@ -125,6 +113,15 @@ set ai
 set autoindent
 " use intelligent indentation for C
 set smartindent
+
+" Convert tabs to spaces
+"set expandtab
+" Set tab size in spaces (this is for manual indenting)
+set tabstop=2
+set softtabstop=2
+" The number of spaces inserted for a tab (used for auto indenting)
+set shiftwidth=2
+
 
 " }}}
 
@@ -206,23 +203,17 @@ set tags+=~/.tags/ctpp2
 " Rambler's CAS
 set tags+=~/.tags/cas
 
-
-
-" Install DoxygenToolkit from http://www.vim.org/scripts/script.php?script_id=987
-"let g:DoxygenToolkit_authorName=“Gerhard Gappmeier <gerhard.gappmeier@ascolab.com>”
-
-
-"---------------------------------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 " tagbar
-"---------------------------------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 " Ширина окна
 let g:tagbar_width = 40
 let g:tagbar_sort = 1
 let g:tagbar_usearrows = 1
 
-"---------------------------------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 " Enhanced keyboard mappings
-"---------------------------------------------------------------------------------------------------
+"-------------------------------------------------------------------------------
 " Press i to enter insert mode, and ii to exit.
 :imap ii <Esc>
 
@@ -247,13 +238,11 @@ map <F4> :cn<Cr>zvzz:cc<Cr>
 map <S-F4> :cp<Cr>zvzz:cc<Cr>
 
 " build using makeprg with <F7>
-map <F7> :make<CR>
+"map <F7> :make<CR>
 
 " build using makeprg with <S-F7>
-map <S-F7> :make clean all<CR>
+"map <S-F7> :make clean all<CR>
 
-" open Tagbar window; jump to it if already exists
-"map <F8> :TagbarOpen('j')<CR>
 " toggle Tagbar window
 nnoremap <F8> :TagbarToggle<CR>
 
@@ -298,13 +287,11 @@ vnoremap <C-c> "+y
 vnoremap <C-x> "+x
 map <C-v> "+gP
 
-" open the definition in a new tab
-map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 " open the definition in a vertical split
-map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+map <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " astyle for CPP
-autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ --mode=c\ --style=ansi\ -t4bJUp
+autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ --mode=c\ --style=ansi\ -t2bJUp
 
 " nerdtree
 map <C-n> :NERDTreeToggle<CR>
