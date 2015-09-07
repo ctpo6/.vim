@@ -7,7 +7,7 @@ filetype plugin indent on
 
 " Change leader to a comma because the backslash is too far away
 " " That means all \x commands turn into ,x
-" " The mapleader has to be set before vundle starts loading all 
+" " The mapleader has to be set before vundle starts loading all
 " " the plugins.
 let mapleader=","
 
@@ -104,11 +104,11 @@ let g:netrw_liststyle=3
 
 " Always highlight column 100 so it's easier to see where
 " cutoff appears on longer screens
-autocmd BufWinEnter * highlight ColorColumn ctermbg=darkblue
+autocmd BufWinEnter * highlight ColorColumn ctermbg=darkgray
 set colorcolumn=80
 
 " always set autoindenting on
-set ai						
+set ai
 " use indentation of previous line
 set autoindent
 " use intelligent indentation for C
@@ -121,9 +121,6 @@ set tabstop=2
 set softtabstop=2
 " The number of spaces inserted for a tab (used for auto indenting)
 set shiftwidth=2
-
-
-" }}}
 
 
 set background=dark
@@ -234,6 +231,8 @@ map <F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 " create doxygen comment
 "map <F6> :Dox<CR>
 
+noremap <C-f> :execute "noautocmd vimgrep /" . input("Search: ") . "/j **/*.c **/*.h **/*.cpp **/*.hpp **/*.cxx" <Bar> cw<CR>
+nnoremap F :execute "noautocmd vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 map <F4> :cn<Cr>zvzz:cc<Cr>
 map <S-F4> :cp<Cr>zvzz:cc<Cr>
 
@@ -291,11 +290,14 @@ map <C-v> "+gP
 map <C-\> :sp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " astyle for CPP
-autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ --mode=c\ --style=ansi\ -t2bJUp
+autocmd BufNewFile,BufRead *.{cpp,c,h,hpp,cxx} set formatprg=astyle\ --mode=c\ --style=google\ -t2bJUp
 
 " nerdtree
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" auto remove trailing whitespaces
+autocmd BufWritePre *.{cpp,h,c,hpp,cxx,pl,py} :%s/\s\+$//e
 
 " autosource .vimrc
 augroup myvimrc
