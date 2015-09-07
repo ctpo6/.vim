@@ -207,7 +207,7 @@ set tags+=~/.tags/cas
 " tagbar
 "-------------------------------------------------------------------------------
 " Ширина окна
-let g:tagbar_width = 40
+let g:tagbar_width = 35
 let g:tagbar_sort = 1
 let g:tagbar_usearrows = 1
 
@@ -288,7 +288,7 @@ vnoremap <C-x> "+x
 map <C-v> "+gP
 
 " open the definition in a vertical split
-map <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+map <C-\> :sp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " astyle for CPP
 autocmd BufNewFile,BufRead *.cpp set formatprg=astyle\ --mode=c\ --style=ansi\ -t2bJUp
