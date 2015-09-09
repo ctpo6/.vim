@@ -115,7 +115,7 @@ set autoindent
 set smartindent
 
 " Convert tabs to spaces
-"set expandtab
+set expandtab
 " Set tab size in spaces (this is for manual indenting)
 set tabstop=2
 set softtabstop=2
@@ -232,7 +232,7 @@ map <F5> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 "map <F6> :Dox<CR>
 
 noremap <C-f> :execute "noautocmd vimgrep /" . input("Search: ") . "/j **/*.c **/*.h **/*.cpp **/*.hpp **/*.cxx" <Bar> cw<CR>
-nnoremap F :execute "noautocmd vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+nnoremap F :execute "noautocmd vimgrep /" . expand("<cword>") . "/j **/*.c **/*.h **/*.cpp **/*.hpp **/*.cxx" <Bar> cw<CR>
 map <F4> :cn<Cr>zvzz:cc<Cr>
 map <S-F4> :cp<Cr>zvzz:cc<Cr>
 
